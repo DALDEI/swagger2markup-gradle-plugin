@@ -11,7 +11,7 @@ def projectArtifactId = 'swagger2markup-gradle-plugin'
 jar {
     manifest {
         attributes(
-                'Built-By': 'Robert Winkler',
+                'Built-By': 'David Lee',
                 'Created-By': System.properties['java.version'] + " (" + System.properties['java.vendor'] + " " + System.properties['java.vm.version'] + ")",
                 'Build-Date': project.buildDate,
                 'Build-Time': project.buildTime,
@@ -36,22 +36,22 @@ bintray {
     publish = true //If version should be auto published after an upload
     publications = ['mavenJava']
     pkg {
-        repo = 'Maven'
+        repo = 'maven'
         name = 'swagger2markup-gradle-plugin'
-        userOrg = 'swagger2markup'
-        websiteUrl = 'https://github.com/Swagger2Markup/swagger2markup-gradle-plugin'
-        issueTrackerUrl = 'https://github.com/Swagger2Markup/swagger2markup-gradle-plugin/issues'
-        vcsUrl = 'https://github.com/Swagger2Markup/swagger2markup-gradle-plugin.git'
+        userOrg = 'daldei'
+        websiteUrl = 'https://github.com/daldei/swagger2markup-gradle-plugin'
+        issueTrackerUrl = 'https://github.com/daldei/swagger2markup-gradle-plugin/issues'
+        vcsUrl = 'https://github.com/daldei/swagger2markup-gradle-plugin.git'
         desc = 'A Swagger to Markup (AsciiDoc and Markdown) converter Gradle Plugin.'
         licenses = ['Apache-2.0']
         version {
             vcsTag = project.version
             gpg {
-                sign = true //Determines whether to GPG sign the files. The default is false
-                passphrase = project.gpgPassphrase //Optional. The passphrase for GPG signing'
+                sign = false //Determines whether to GPG sign the files. The default is false
+                //passphrase = project.gpgPassphrase //Optional. The passphrase for GPG signing'
             }
             mavenCentralSync {
-                sync = true //Optional (true by default). Determines whether to sync the version to Maven Central.
+                sync = false //Optional (true by default). Determines whether to sync the version to Maven Central.
                 user = ossUser //OSS user token
                 password = ossPassword //OSS user password
             }
@@ -64,7 +64,7 @@ publishing {
         mavenJava(MavenPublication) {
             from components.java
             pom.withXml {
-                def devs = ['RobWin': 'Robert Winkler']
+                def devs = ['RobWin': 'Robert Winkler','daldei':'David Lee']
                 def root = asNode()
 
                 root.dependencies.'*'.findAll() {
@@ -85,7 +85,7 @@ publishing {
                 license.appendNode('url', 'https://github.com/Swagger2Markup/swagger2markup-gradle-plugin/blob/master/LICENSE.txt')
                 license.appendNode('distribution', 'repo')
 
-                root.appendNode('scm').appendNode('url', 'https://github.com/Swagger2Markup/swagger2markup-gradle-plugin.git')
+                root.appendNode('scm').appendNode('url', 'https://github.com/daldei/swagger2markup-gradle-plugin.git')
 
                 def developers = root.appendNode('developers')
                 devs.each {
